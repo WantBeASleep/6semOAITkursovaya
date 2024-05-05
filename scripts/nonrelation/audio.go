@@ -1,8 +1,12 @@
-package tables
+package nonrelation
 
 import (
 	"database/sql"
+	"encoding/csv"
 	"fmt"
+	"kra/constants"
+	"os"
+	"path"
 
 	_ "github.com/lib/pq"
 
@@ -59,6 +63,13 @@ func fillAudio(data []data.TrackInfo, db *sql.DB) error {
 		return fmt.Errorf("cant del audio table: %w", err)
 	}
 
+	curDir, _ := os.Getwd()
+	idsCsvFile, _ := os.Create(path.Join(curDir, constants.CostylAudio))
+	defer idsCsvFile.Close()
+	w := csv.NewWriter(idsCsvFile)
+	defer w.Flush()
+	idsCsv := [][]string{}
+
 	for _, track := range data {
 		metricId, err := createMetric(db)
 		if err != nil {
@@ -75,7 +86,10 @@ func fillAudio(data []data.TrackInfo, db *sql.DB) error {
 			return fmt.Errorf("cant insert new audio: %w", err)
 		}
 		track.Audio.Id = audioId
+		idsCsv = append(idsCsv, []string{fmt.Sprint(audioId)})
 	}
+
+	w.WriteAll(idsCsv)
 	
 	return nil
 }

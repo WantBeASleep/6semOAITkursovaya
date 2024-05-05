@@ -1,11 +1,15 @@
-package tables
+package nonrelation
 
 import (
 	"database/sql"
+	"encoding/csv"
 	"fmt"
+	"os"
+	"path"
 
 	pq "github.com/lib/pq"
 
+	"kra/constants"
 	"kra/data"
 	helper "kra/querryhelpers"
 )
@@ -59,6 +63,13 @@ func fillGenre(data []data.TrackInfo, db *sql.DB) error {
 		return fmt.Errorf("cant del genre table: %w", err)
 	}
 
+	curDir, _ := os.Getwd()
+	idsCsvFile, _ := os.Create(path.Join(curDir, constants.CostylGenre))
+	defer idsCsvFile.Close()
+	w := csv.NewWriter(idsCsvFile)
+	defer w.Flush()
+	idsCsv := [][]string{}
+
 	for _, track := range data {
 		metricId, err := createMetric(db)
 		if err != nil {
@@ -83,7 +94,10 @@ func fillGenre(data []data.TrackInfo, db *sql.DB) error {
 			}
 		}
 		track.Genre.Id = genreId
+		idsCsv = append(idsCsv, []string{fmt.Sprint(genreId)})
 	}
 	
+	w.WriteAll(idsCsv)
+
 	return nil
 }

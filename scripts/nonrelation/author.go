@@ -1,8 +1,13 @@
-package tables
+package nonrelation
 
 import (
 	"database/sql"
 	"fmt"
+
+	"encoding/csv"
+	"kra/constants"
+	"os"
+	"path"
 
 	_ "github.com/lib/pq"
 
@@ -59,6 +64,13 @@ func fillAuthor(data []data.TrackInfo, db *sql.DB) error {
 		return fmt.Errorf("cant del author table: %w", err)
 	}
 
+	curDir, _ := os.Getwd()
+	idsCsvFile, _ := os.Create(path.Join(curDir, constants.CostylAudio))
+	defer idsCsvFile.Close()
+	w := csv.NewWriter(idsCsvFile)
+	defer w.Flush()
+	idsCsv := [][]string{}
+
 	for _, track := range data {
 		cntAuthorByName := 0
 		err := db.QueryRow(
@@ -97,7 +109,10 @@ func fillAuthor(data []data.TrackInfo, db *sql.DB) error {
 			}
 		}
 		track.Author.Id = authorID
+		idsCsv = append(idsCsv, []string{fmt.Sprint(authorID)})
 	}
+
+	w.WriteAll(idsCsv)
 	
 	return nil
 }

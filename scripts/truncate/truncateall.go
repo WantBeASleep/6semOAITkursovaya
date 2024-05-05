@@ -1,4 +1,4 @@
-package tables
+package truncate
 
 import (
     "database/sql"
@@ -8,7 +8,7 @@ import (
     _ "github.com/lib/pq" // Используем драйвер PostgreSQL
 )
 
-func TruncateAllTables(db *sql.DB, path string) error {
+func truncateAllTables(db *sql.DB, path string) error {
 	query, err := os.ReadFile(path)
     if err != nil {
         return fmt.Errorf("cant read SQL file: %v", err)

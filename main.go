@@ -3,8 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"kra/constants"
-	"kra/tables"
+	"kra/scripts"
 
 	_ "github.com/lib/pq"
 )
@@ -16,8 +15,6 @@ func openConnection() (*sql.DB, error) {
 	if err != nil {
 		return nil, fmt.Errorf("cant sql open: %w", err)
 	}
-	defer db.Close()
-
 	return db, nil
 }
 
@@ -26,8 +23,9 @@ func main() {
 	if err != nil {
 		panic(fmt.Errorf("cant connect to postgres!: %w", err))
 	}
+	defer db.Close()
 
-	if err := tables.Manager(db, constants.DATASET_PATH, constants.TRUNCATE_PATH); err != nil {
+	if err := scripts.Manager(db); err != nil {
 		panic(fmt.Errorf("cant manipulate with tables: %w", err))
 	}
 }

@@ -7,6 +7,12 @@ const (
 )
 
 const (
+	CostylAudio = "data/costyl/audioID.csv"
+	CostylGenre = "data/costyl/genreID.csv"
+	CostylAuthor = "data/costyl/authorID.csv"
+)
+
+const (
 	CntAudio = -1 // parse from csv
 	CntGenre = -1 // parse from csv
 	CntAuthor = -1 //parse from csv
