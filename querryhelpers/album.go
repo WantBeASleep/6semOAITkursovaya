@@ -13,7 +13,7 @@ func InsertAlbum(
 ) (int, error) {
 	response := 0
 	err := db.QueryRow(
-		"INSERT INTO \"album\" (\"appellation\", \"release\", \"metricId\") " + 
+		"INSERT INTO \"album\" (\"appellation\", \"release data\", \"metric id\") " + 
 			"VALUES ($1, $2, $3) RETURNING id",
 		appellation,
 		release,

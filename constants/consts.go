@@ -7,18 +7,12 @@ const (
 )
 
 const (
-	CostylAudio = "data/costyl/audioID.csv"
-	CostylGenre = "data/costyl/genreID.csv"
-	CostylAuthor = "data/costyl/authorID.csv"
-)
-
-const (
 	CntAudio = -1 // parse from csv
 	CntGenre = -1 // parse from csv
 	CntAuthor = -1 //parse from csv
 	CntAlbum = -1 // parse from csv*
-	CntAlbumMix = 40000
-	CntUser = 500000
+	CntAlbumMix = 40000 //40000
+	CntUser = 500000 //500000
 )
 
 // * - авторские/mix альбомы, авторские - по альбому на исполнителя, mix - const
@@ -29,9 +23,9 @@ const (
 )
 
 const (
-	TopCntAudioInAlbum = 50
-	TopCntUserAudio = 100
-	TopCntUserAlbum = 30
+	TopCntAudioInAlbum = 30
+	TopCntUserAudio = 50
+	TopCntUserAlbum = 20
 )
 
 const (

@@ -1,4 +1,4 @@
--- -- Active: 1714813090272@@127.0.0.1@5432@6sem
+-- Active: 1714925082602@@127.0.0.1@5432@6sem
 
 DROP TABLE IF EXISTS "metric" CASCADE;
 DROP TABLE IF EXISTS "audio" CASCADE;
@@ -47,7 +47,7 @@ CREATE TABLE "genre" (
 
 CREATE TABLE "author" (
     id SERIAL PRIMARY KEY,
-    "appellation" VARCHAR(50) NOT NULL,
+    "appellation" VARCHAR(50) UNIQUE NOT NULL,
     "description" VARCHAR(1000),
     "metric id" INTEGER NOT NULL,
     FOREIGN KEY ("metric id") REFERENCES "metric"(id) ON DELETE CASCADE ON UPDATE CASCADE 

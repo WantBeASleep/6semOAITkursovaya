@@ -3,7 +3,8 @@ package main
 import (
 	"database/sql"
 	"fmt"
-	"kra/scripts"
+
+	"kra/filltable"
 
 	_ "github.com/lib/pq"
 )
@@ -21,11 +22,11 @@ func openConnection() (*sql.DB, error) {
 func main() {
 	db, err := openConnection()
 	if err != nil {
-		panic(fmt.Errorf("cant connect to postgres!: %w", err))
+		panic(fmt.Errorf("cant connect to postgres: %w", err))
 	}
 	defer db.Close()
 
-	if err := scripts.Manager(db); err != nil {
+	if err := filltable.Manager(db); err != nil {
 		panic(fmt.Errorf("cant manipulate with tables: %w", err))
 	}
 }
