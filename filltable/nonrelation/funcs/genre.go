@@ -7,11 +7,11 @@ import (
 	_ "github.com/lib/pq"
 
 	"kra/data"
-	helper "kra/querryhelpers"
 	funcshelpers "kra/filltable/helpers"
+	helper "kra/querryhelpers"
 )
 
-func deleteAllGenre(db * sql.DB) error {
+func deleteAllGenre(db *sql.DB) error {
 	rows, err := db.Query(
 		"SELECT id, \"metric id\" FROM \"genre\" ",
 	)
@@ -27,8 +27,8 @@ func deleteAllGenre(db * sql.DB) error {
 		}
 
 		_, err := db.Exec(
-			"DELETE FROM \"genre\" " + 
-			"WHERE id = $1",
+			"DELETE FROM \"genre\" "+
+				"WHERE id = $1",
 			genreId,
 		)
 		if err != nil {
@@ -36,8 +36,8 @@ func deleteAllGenre(db * sql.DB) error {
 		}
 
 		_, err = db.Exec(
-			"DELETE FROM \"metric\" " + 
-			"WHERE id = $1",
+			"DELETE FROM \"metric\" "+
+				"WHERE id = $1",
 			metricId,
 		)
 		if err != nil {

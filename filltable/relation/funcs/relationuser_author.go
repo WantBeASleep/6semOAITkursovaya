@@ -30,9 +30,9 @@ func RelationUser_Author(data []data.TrackInfo, db *sql.DB) error {
 		randUserID := -1
 		for seenUsers[randUserID] {
 			err := db.QueryRow(
-				"SELECT id FROM \"user\" " + 
-				"ORDER BY RANDOM() " + 
-				"LIMIT 1",
+				"SELECT id FROM \"user\" " +
+					"ORDER BY RANDOM() " +
+					"LIMIT 1",
 			).Scan(&randUserID)
 			if err != nil {
 				return fmt.Errorf("cant get random user: %w", err)
@@ -41,11 +41,11 @@ func RelationUser_Author(data []data.TrackInfo, db *sql.DB) error {
 		seenUsers[randUserID] = true
 
 		_, err = db.Exec(
-			"UPDATE \"user\" " + 
-			"SET " +
-			"\"author id\" = $1, " + 
-			"role = 1 " +
-			"WHERE id = $2 ",
+			"UPDATE \"user\" "+
+				"SET "+
+				"\"author id\" = $1, "+
+				"role = 1 "+
+				"WHERE id = $2 ",
 			authorID,
 			randUserID,
 		)

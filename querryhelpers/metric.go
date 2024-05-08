@@ -16,13 +16,13 @@ func InsertMetric(
 ) (int, error) {
 	response := 0
 	err := db.QueryRow(
-		"INSERT INTO \"metric\" (\"views\", \"likes\", \"reposts\", \"retention\", \"downloads\", \"year-popularity\") " + 
-			"VALUES ($1, $2, $3, $4, $5, $6) RETURNING id", 
+		"INSERT INTO \"metric\" (\"views\", \"likes\", \"reposts\", \"retention\", \"downloads\", \"year-popularity\") "+
+			"VALUES ($1, $2, $3, $4, $5, $6) RETURNING id",
 		views,
-		likes, 
+		likes,
 		reposts,
 		retention,
-		downloads, 
+		downloads,
 		year_popularity,
 	).Scan(&response)
 	return response, err

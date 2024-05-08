@@ -13,12 +13,11 @@ func InsertExternal(
 ) (int, error) {
 	response := 0
 	err := db.QueryRow(
-		"INSERT INTO \"external resource\" (\"link\", \"type\", \"author id\") " + 
-			"VALUES ($1, $2, $3) RETURNING id", 
+		"INSERT INTO \"external resource\" (\"link\", \"type\", \"author id\") "+
+			"VALUES ($1, $2, $3) RETURNING id",
 		link,
-		rtype, 
+		rtype,
 		authorId,
 	).Scan(&response)
 	return response, err
 }
-

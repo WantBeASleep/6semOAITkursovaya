@@ -35,7 +35,7 @@ func Manager(db *sql.DB) error {
 	)
 
 	term := tea.NewProgram(cli.InitialModel(handler.GetOptionDescription()))
-	m, err := term.Run();
+	m, err := term.Run()
 	if err != nil {
 		return fmt.Errorf("error while run terminal: %w", err)
 	}

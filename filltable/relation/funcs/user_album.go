@@ -7,11 +7,11 @@ import (
 
 	_ "github.com/lib/pq"
 
-	helper "kra/querryhelpers"
 	"kra/constants"
+	helper "kra/querryhelpers"
 )
 
-func deleteAllUser_Album(db * sql.DB) error {
+func deleteAllUser_Album(db *sql.DB) error {
 	_, err := db.Exec(
 		"TRUNCATE TABLE \"user_album\" RESTART IDENTITY CASCADE",
 	)
@@ -43,10 +43,10 @@ func FillUser_Album(db *sql.DB) error {
 		}
 
 		albumIds, err := db.Query(
-			"SELECT id FROM \"album\" " +
-			"ORDER BY RANDOM() " +
-			"LIMIT $1",
-			1 + rand.Intn(constants.TopCntUserAlbum),
+			"SELECT id FROM \"album\" "+
+				"ORDER BY RANDOM() "+
+				"LIMIT $1",
+			1+rand.Intn(constants.TopCntUserAlbum),
 		)
 		if err != nil {
 			return fmt.Errorf("cant get album ids: %w", err)
@@ -70,6 +70,6 @@ func FillUser_Album(db *sql.DB) error {
 			}
 		}
 	}
-	
+
 	return nil
 }

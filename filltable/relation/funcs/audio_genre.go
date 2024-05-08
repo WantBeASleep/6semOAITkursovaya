@@ -10,7 +10,7 @@ import (
 	helper "kra/querryhelpers"
 )
 
-func deleteAllAudio_Genre(db * sql.DB) error {
+func deleteAllAudio_Genre(db *sql.DB) error {
 	_, err := db.Exec(
 		"TRUNCATE TABLE \"audio_genre\" RESTART IDENTITY CASCADE",
 	)
@@ -30,8 +30,8 @@ func FillAudio_Genre(data []data.TrackInfo, db *sql.DB) error {
 
 		audioId := 0
 		err := db.QueryRow(
-			"SELECT id FROM audio " + 
-			"WHERE lyric = $1",
+			"SELECT id FROM audio "+
+				"WHERE lyric = $1",
 			track.Audio.Lyric,
 		).Scan(&audioId)
 		if err != nil {
@@ -40,8 +40,8 @@ func FillAudio_Genre(data []data.TrackInfo, db *sql.DB) error {
 
 		genreID := 0
 		err = db.QueryRow(
-			"SELECT id FROM genre " + 
-			"WHERE appellation = $1",
+			"SELECT id FROM genre "+
+				"WHERE appellation = $1",
 			track.Genre.Appellation,
 		).Scan(&genreID)
 		if err != nil {
@@ -57,6 +57,6 @@ func FillAudio_Genre(data []data.TrackInfo, db *sql.DB) error {
 			return fmt.Errorf("cant insert new audio_genre relation: %w", err)
 		}
 	}
-	
+
 	return nil
 }

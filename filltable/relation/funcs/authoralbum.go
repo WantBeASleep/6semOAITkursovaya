@@ -7,16 +7,16 @@ import (
 
 	_ "github.com/lib/pq"
 
-	"kra/lib"
 	"kra/constants"
-	helper "kra/querryhelpers"
 	funcshelpers "kra/filltable/helpers"
+	"kra/lib"
+	helper "kra/querryhelpers"
 )
 
-func deleteAllAuthorAlbum(db * sql.DB) error {
+func deleteAllAuthorAlbum(db *sql.DB) error {
 	rows, err := db.Query(
-		"SELECT id, \"metric id\" FROM \"album\" " + 
-		"WHERE appellation LIKE 'author%'",
+		"SELECT id, \"metric id\" FROM \"album\" " +
+			"WHERE appellation LIKE 'author%'",
 	)
 	if err != nil {
 		return fmt.Errorf("cant get album && metric id: %w", err)
@@ -30,8 +30,8 @@ func deleteAllAuthorAlbum(db * sql.DB) error {
 		}
 
 		_, err := db.Exec(
-			"DELETE FROM \"album\" " + 
-			"WHERE id = $1",
+			"DELETE FROM \"album\" "+
+				"WHERE id = $1",
 			albumID,
 		)
 		if err != nil {
@@ -39,8 +39,8 @@ func deleteAllAuthorAlbum(db * sql.DB) error {
 		}
 
 		_, err = db.Exec(
-			"DELETE FROM \"metric\" " + 
-			"WHERE id = $1",
+			"DELETE FROM \"metric\" "+
+				"WHERE id = $1",
 			metricId,
 		)
 		if err != nil {
@@ -57,15 +57,15 @@ func genAlbumByPrefix(db *sql.DB, albumPrefix string) error {
 		return fmt.Errorf("cant insert new album metric: %w", err)
 	}
 	_, err = helper.InsertAlbum(
-		db, 
-		albumPrefix + "@" + lib.GetRandString(constants.AlbumName),
-		fmt.Sprint(1950 + rand.Intn(2020 - 1950)),
+		db,
+		albumPrefix+"@"+lib.GetRandString(constants.AlbumName),
+		fmt.Sprint(1950+rand.Intn(2020-1950)),
 		metricId,
 	)
 	if err != nil {
 		return fmt.Errorf("cant insert new %s album: %w", albumPrefix, err)
 	}
-	
+
 	return nil
 }
 
@@ -77,8 +77,8 @@ func FillAuthorAlbum(db *sql.DB) error {
 	//authors
 	authorWithManyTracksCnt := 0
 	err := db.QueryRow(
-		"SELECT COUNT(*) FROM " + 
-		"(SELECT \"author id\" FROM \"author_audio\" GROUP BY \"author id\" HAVING COUNT(*) > 3) as ass",
+		"SELECT COUNT(*) FROM " +
+			"(SELECT \"author id\" FROM \"author_audio\" GROUP BY \"author id\" HAVING COUNT(*) > 3) as ass",
 	).Scan(&authorWithManyTracksCnt)
 	if err != nil {
 		return fmt.Errorf("cant get authors with many tracks: %w", err)

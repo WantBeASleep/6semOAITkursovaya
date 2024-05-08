@@ -13,12 +13,11 @@ func InsertSnippet(
 ) (int, error) {
 	response := 0
 	err := db.QueryRow(
-		"INSERT INTO \"snippet\" (\"start\", \"end\", \"audio id\") " + 
-			"VALUES ($1, $2, $3) RETURNING id", 
+		"INSERT INTO \"snippet\" (\"start\", \"end\", \"audio id\") "+
+			"VALUES ($1, $2, $3) RETURNING id",
 		start,
-		end, 
+		end,
 		audioId,
 	).Scan(&response)
 	return response, err
 }
-

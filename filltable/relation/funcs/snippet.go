@@ -12,7 +12,7 @@ import (
 	helper "kra/querryhelpers"
 )
 
-func deleteAllSnippet(db * sql.DB) error {
+func deleteAllSnippet(db *sql.DB) error {
 	_, err := db.Exec(
 		"TRUNCATE TABLE \"snippet\" RESTART IDENTITY CASCADE",
 	)
@@ -64,6 +64,6 @@ func FillSnippet(data []data.TrackInfo, db *sql.DB) error {
 
 		i++
 	}
-	
+
 	return nil
 }

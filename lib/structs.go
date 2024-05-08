@@ -1,13 +1,13 @@
 package lib
 
 type User struct {
-	Login string
-	Email string
+	Login    string
+	Email    string
 	Password string
-	Role int
+	Role     int
 }
 
 type ExternalResource struct {
-	Link string
+	Link  string
 	RType string
 }

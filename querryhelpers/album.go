@@ -13,7 +13,7 @@ func InsertAlbum(
 ) (int, error) {
 	response := 0
 	err := db.QueryRow(
-		"INSERT INTO \"album\" (\"appellation\", \"release data\", \"metric id\") " + 
+		"INSERT INTO \"album\" (\"appellation\", \"release data\", \"metric id\") "+
 			"VALUES ($1, $2, $3) RETURNING id",
 		appellation,
 		release,
@@ -28,7 +28,7 @@ func InsertAlbum_Genre(
 	genreId int,
 ) error {
 	_, err := db.Exec(
-		"INSERT INTO \"album_genre\" (\"album id\", \"genre id\") " + 
+		"INSERT INTO \"album_genre\" (\"album id\", \"genre id\") "+
 			"VALUES ($1, $2)",
 		albumId,
 		genreId,
@@ -42,8 +42,8 @@ func InsertAlbum_Audio(
 	audioId int,
 ) error {
 	_, err := db.Exec(
-		"INSERT INTO \"album_audio\" (\"album id\", \"audio id\") " + 
-			"VALUES ($1, $2)", 
+		"INSERT INTO \"album_audio\" (\"album id\", \"audio id\") "+
+			"VALUES ($1, $2)",
 		albumId,
 		audioId,
 	)

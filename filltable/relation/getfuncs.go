@@ -10,34 +10,34 @@ import (
 func GetFuncs(db *sql.DB) []model.TableFunc {
 	return []model.TableFunc{
 		{
-			TableName: "snippet",
+			TableName:   "snippet",
 			TableStatus: helpers.GetTableStatus(db, "snippet"),
-			Efunc: funcs.FillSnippet,
+			Efunc:       funcs.FillSnippet,
 		},
 		{
-			TableName: "external resource",
+			TableName:   "external resource",
 			TableStatus: helpers.GetTableStatus(db, "external resource"),
-			Efunc: funcs.FillExternal,
+			Efunc:       funcs.FillExternal,
 		},
 		{
-			TableName: "audio_genre",
+			TableName:   "audio_genre",
 			TableStatus: helpers.GetTableStatus(db, "audio_genre"),
-			Efunc: funcs.FillAudio_Genre,
+			Efunc:       funcs.FillAudio_Genre,
 		},
 		{
-			TableName: "author_audio",
+			TableName:   "author_audio",
 			TableStatus: helpers.GetTableStatus(db, "author_audio"),
-			Efunc: funcs.FillAuthor_Audio,
+			Efunc:       funcs.FillAuthor_Audio,
 		},
 		{
-			TableName: "user_audio",
+			TableName:   "user_audio",
 			TableStatus: helpers.GetTableStatus(db, "user_audio"),
-			Efunc: funcs.FillUser_Audio,
+			Efunc:       funcs.FillUser_Audio,
 		},
 		{
-			TableName: "relation user-author",
+			TableName:   "relation user-author",
 			TableStatus: helpers.GetTableStatus(db, "user"),
-			Efunc: funcs.RelationUser_Author,
+			Efunc:       funcs.RelationUser_Author,
 		},
 		// {
 		// 	TableName: "author albums",
@@ -45,9 +45,9 @@ func GetFuncs(db *sql.DB) []model.TableFunc {
 		// 	Efunc: funcs.FillAuthorAlbum,
 		// },
 		{
-			TableName: "mix album_audio",
+			TableName:   "mix album_audio",
 			TableStatus: helpers.GetTableStatus(db, "album_audio"),
-			Efunc: funcs.FillMixAlbum_Audio,
+			Efunc:       funcs.FillMixAlbum_Audio,
 		},
 		// {
 		// 	TableName: "author album_audio",
@@ -55,20 +55,19 @@ func GetFuncs(db *sql.DB) []model.TableFunc {
 		// 	Efunc: funcs.FillAuthorAlbum_Audio,
 		// },
 		{
-			TableName: "album_genre",
+			TableName:   "album_genre",
 			TableStatus: helpers.GetTableStatus(db, "album_genre"),
-			Efunc: funcs.FillAlbum_Genre,
+			Efunc:       funcs.FillAlbum_Genre,
 		},
 		{
-			TableName: "author_album",
+			TableName:   "author_album",
 			TableStatus: helpers.GetTableStatus(db, "author_album"),
-			Efunc: funcs.FillAuthor_Album,
+			Efunc:       funcs.FillAuthor_Album,
 		},
 		{
-			TableName: "user_album",
+			TableName:   "user_album",
 			TableStatus: helpers.GetTableStatus(db, "user_album"),
-			Efunc: funcs.FillUser_Album,
+			Efunc:       funcs.FillUser_Album,
 		},
-		
 	}
 }

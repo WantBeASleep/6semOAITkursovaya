@@ -2,8 +2,8 @@ package data
 
 type Audio struct {
 	Appellation string
-	Lyric string
-	Release string
+	Lyric       string
+	Release     string
 }
 
 type Genre struct {
@@ -18,12 +18,12 @@ type Author struct {
 
 type Snippet struct {
 	Start int
-	End int
+	End   int
 }
 
 type TrackInfo struct {
-	Audio Audio
-	Genre Genre
-	Author Author
+	Audio   Audio
+	Genre   Genre
+	Author  Author
 	Snippet Snippet
 }

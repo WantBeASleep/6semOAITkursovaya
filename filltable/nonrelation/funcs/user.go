@@ -11,7 +11,7 @@ import (
 	helper "kra/querryhelpers"
 )
 
-func deleteAllUser(db * sql.DB) error {
+func deleteAllUser(db *sql.DB) error {
 	rows, err := db.Query(
 		"SELECT id, \"author id\" FROM \"user\" ",
 	)
@@ -27,8 +27,8 @@ func deleteAllUser(db * sql.DB) error {
 		}
 
 		_, err := db.Exec(
-			"DELETE FROM \"user\" " + 
-			"WHERE id = $1",
+			"DELETE FROM \"user\" "+
+				"WHERE id = $1",
 			userId,
 		)
 		if err != nil {
@@ -36,8 +36,8 @@ func deleteAllUser(db * sql.DB) error {
 		}
 
 		_, err = db.Exec(
-			"DELETE FROM \"author\" " + 
-			"WHERE id = $1",
+			"DELETE FROM \"author\" "+
+				"WHERE id = $1",
 			authorID,
 		)
 		if err != nil {

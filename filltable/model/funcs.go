@@ -9,13 +9,13 @@ import (
 )
 
 type TableFunc struct {
-	TableName string
+	TableName   string
 	TableStatus string
-	Efunc interface{}
+	Efunc       interface{}
 }
 
 type FuncsHolder struct {
-	db *sql.DB
+	db   *sql.DB
 	data []data.TrackInfo
 
 	funcs []TableFunc
@@ -23,8 +23,8 @@ type FuncsHolder struct {
 
 func InitFuncHolder(db *sql.DB, data []data.TrackInfo, funcs []TableFunc) FuncsHolder {
 	return FuncsHolder{
-		db: db,
-		data: data,
+		db:    db,
+		data:  data,
 		funcs: funcs,
 	}
 }
@@ -32,7 +32,7 @@ func InitFuncHolder(db *sql.DB, data []data.TrackInfo, funcs []TableFunc) FuncsH
 func (f FuncsHolder) GetOptionDescription() []string {
 	res := make([]string, 0, len(f.funcs))
 	for _, efunc := range f.funcs {
-		res = append(res, efunc.TableName + ", " + efunc.TableStatus)
+		res = append(res, efunc.TableName+", "+efunc.TableStatus)
 	}
 	return res
 }
@@ -48,5 +48,3 @@ func (f FuncsHolder) DoFunc(i int) error {
 	}
 	return errors.New("not implement func interface")
 }
-
-

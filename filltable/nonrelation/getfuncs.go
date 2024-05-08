@@ -10,29 +10,29 @@ import (
 func GetFuncs(db *sql.DB) []model.TableFunc {
 	return []model.TableFunc{
 		{
-			TableName: "audio",
+			TableName:   "audio",
 			TableStatus: helpers.GetTableStatus(db, "audio"),
-			Efunc: funcs.FillAudio,
+			Efunc:       funcs.FillAudio,
 		},
 		{
-			TableName: "author",
+			TableName:   "author",
 			TableStatus: helpers.GetTableStatus(db, "author"),
-			Efunc: funcs.FillAuthor,
+			Efunc:       funcs.FillAuthor,
 		},
 		{
-			TableName: "genre",
+			TableName:   "genre",
 			TableStatus: helpers.GetTableStatus(db, "genre"),
-			Efunc: funcs.FillGenre,
+			Efunc:       funcs.FillGenre,
 		},
 		{
-			TableName: "mixalbum",
+			TableName:   "mixalbum",
 			TableStatus: helpers.GetTableStatus(db, "album"),
-			Efunc: funcs.FillMixAlbum,
+			Efunc:       funcs.FillMixAlbum,
 		},
 		{
-			TableName: "user",
+			TableName:   "user",
 			TableStatus: helpers.GetTableStatus(db, "user"),
-			Efunc: funcs.FillUser,
+			Efunc:       funcs.FillUser,
 		},
 	}
 }

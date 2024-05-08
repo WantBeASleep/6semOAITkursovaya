@@ -13,10 +13,10 @@ func InsertAuthor(
 ) (int, error) {
 	response := 0
 	err := db.QueryRow(
-		"INSERT INTO \"author\" (\"appellation\", \"description\", \"metric id\") " + 
-			"VALUES ($1, $2, $3) RETURNING id", 
+		"INSERT INTO \"author\" (\"appellation\", \"description\", \"metric id\") "+
+			"VALUES ($1, $2, $3) RETURNING id",
 		appellation,
-		description, 
+		description,
 		metricId,
 	).Scan(&response)
 	return response, err
@@ -28,8 +28,8 @@ func InsertAuthor_Album(
 	albumId int,
 ) error {
 	_, err := db.Exec(
-		"INSERT INTO \"author_album\" (\"author id\", \"album id\") " + 
-			"VALUES ($1, $2)", 
+		"INSERT INTO \"author_album\" (\"author id\", \"album id\") "+
+			"VALUES ($1, $2)",
 		authorId,
 		albumId,
 	)
@@ -42,11 +42,10 @@ func InsertAuthor_Audio(
 	audioId int,
 ) error {
 	_, err := db.Exec(
-		"INSERT INTO \"author_audio\" (\"author id\", \"audio id\") " + 
-			"VALUES ($1, $2)", 
+		"INSERT INTO \"author_audio\" (\"author id\", \"audio id\") "+
+			"VALUES ($1, $2)",
 		authorId,
 		audioId,
 	)
 	return err
 }
-

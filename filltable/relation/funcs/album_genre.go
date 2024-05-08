@@ -9,7 +9,7 @@ import (
 	helper "kra/querryhelpers"
 )
 
-func deleteAllAlbum_Genre(db * sql.DB) error {
+func deleteAllAlbum_Genre(db *sql.DB) error {
 	_, err := db.Exec(
 		"TRUNCATE TABLE \"album_genre\" RESTART IDENTITY CASCADE",
 	)
@@ -41,17 +41,17 @@ func FillAlbum_Genre(db *sql.DB) error {
 
 		topGenreIdInAlbum := 0
 		err = db.QueryRow(
-			"SELECT genre.id FROM " + 
-			"(SELECT * FROM album_audio WHERE album_audio.\"album id\" = $1) as album_audio " +
-			"JOIN audio " + 
-			"ON audio.id = album_audio.\"audio id\" " + 
-			"JOIN audio_genre " + 
-			"ON audio.id = audio_genre.\"audio id\" " +
-			"JOIN genre " +
-			"ON genre.id = audio_genre.\"genre id\" " +
-			"GROUP BY genre.id " + 
-			"ORDER BY COUNT(*) DESC " + 
-			"LIMIT 1",
+			"SELECT genre.id FROM "+
+				"(SELECT * FROM album_audio WHERE album_audio.\"album id\" = $1) as album_audio "+
+				"JOIN audio "+
+				"ON audio.id = album_audio.\"audio id\" "+
+				"JOIN audio_genre "+
+				"ON audio.id = audio_genre.\"audio id\" "+
+				"JOIN genre "+
+				"ON genre.id = audio_genre.\"genre id\" "+
+				"GROUP BY genre.id "+
+				"ORDER BY COUNT(*) DESC "+
+				"LIMIT 1",
 			albumID,
 		).Scan(&topGenreIdInAlbum)
 		if err != nil {
@@ -67,6 +67,6 @@ func FillAlbum_Genre(db *sql.DB) error {
 			return fmt.Errorf("cant insert new album-genre: %w", err)
 		}
 	}
-	
+
 	return nil
 }

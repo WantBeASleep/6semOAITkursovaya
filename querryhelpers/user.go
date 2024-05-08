@@ -5,7 +5,7 @@ import (
 	_ "github.com/lib/pq"
 )
 
-//authorId OPTIONAL set -1 if user not author
+// authorId OPTIONAL set -1 if user not author
 func InsertUser(
 	db *sql.DB,
 	login string,
@@ -15,15 +15,15 @@ func InsertUser(
 ) (int, error) {
 	response := 0
 	err := db.QueryRow(
-		"INSERT INTO \"user\" (\"login\", \"email\", \"password\", \"role\") " + 
-			"VALUES ($1, $2, $3, $4) RETURNING id", 
+		"INSERT INTO \"user\" (\"login\", \"email\", \"password\", \"role\") "+
+			"VALUES ($1, $2, $3, $4) RETURNING id",
 		login,
-		email, 
+		email,
 		password,
 		role,
 	).Scan(&response)
 	return response, err
-	
+
 }
 
 func InsertUser_Album(
@@ -32,8 +32,8 @@ func InsertUser_Album(
 	albumId int,
 ) error {
 	_, err := db.Exec(
-		"INSERT INTO \"user_album\" (\"user id\", \"album id\") " + 
-			"VALUES ($1, $2)", 
+		"INSERT INTO \"user_album\" (\"user id\", \"album id\") "+
+			"VALUES ($1, $2)",
 		userId,
 		albumId,
 	)
@@ -46,8 +46,8 @@ func InsertUser_Audio(
 	audioId int,
 ) error {
 	_, err := db.Exec(
-		"INSERT INTO \"user_audio\" (\"user id\", \"audio id\") " + 
-			"VALUES ($1, $2)", 
+		"INSERT INTO \"user_audio\" (\"user id\", \"audio id\") "+
+			"VALUES ($1, $2)",
 		userId,
 		audioId,
 	)

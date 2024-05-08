@@ -50,12 +50,12 @@ func readCSVFile(path string) ([]TrackInfo, error) {
 		line.Audio.Appellation = record[2]
 		line.Audio.Release = record[3]
 		line.Audio.Lyric = record[5]
-		
+
 		trackLen, err := strconv.Atoi(record[6])
 		if err != nil {
 			return nil, fmt.Errorf("cant convert track len: %w", err)
 		}
-		
+
 		start, end := rand.Intn(trackLen), rand.Intn(trackLen)
 		if start > end {
 			start, end = end, start
@@ -64,7 +64,7 @@ func readCSVFile(path string) ([]TrackInfo, error) {
 		line.Snippet.End = end
 
 		line.Genre.Appellation = record[4]
-		
+
 		parsedTracks = append(parsedTracks, line)
 	}
 

@@ -7,11 +7,11 @@ import (
 	_ "github.com/lib/pq"
 
 	"kra/data"
-	helper "kra/querryhelpers"
 	funcshelpers "kra/filltable/helpers"
+	helper "kra/querryhelpers"
 )
 
-func deleteAllAuthor(db * sql.DB) error {
+func deleteAllAuthor(db *sql.DB) error {
 	rows, err := db.Query(
 		"SELECT id, \"metric id\" FROM \"author\" ",
 	)
@@ -27,8 +27,8 @@ func deleteAllAuthor(db * sql.DB) error {
 		}
 
 		_, err := db.Exec(
-			"DELETE FROM \"author\" " + 
-			"WHERE id = $1",
+			"DELETE FROM \"author\" "+
+				"WHERE id = $1",
 			authorId,
 		)
 		if err != nil {
@@ -36,8 +36,8 @@ func deleteAllAuthor(db * sql.DB) error {
 		}
 
 		_, err = db.Exec(
-			"DELETE FROM \"metric\" " + 
-			"WHERE id = $1",
+			"DELETE FROM \"metric\" "+
+				"WHERE id = $1",
 			metricId,
 		)
 		if err != nil {
@@ -67,7 +67,7 @@ func FillAuthor(data []data.TrackInfo, db *sql.DB) error {
 			continue
 		}
 		seenAuthors[track.Author.Appellation] = true
-		
+
 		metricId, err := funcshelpers.CreateMetric(db)
 		if err != nil {
 			return fmt.Errorf("cant insert new author metric: %w", err)
@@ -82,6 +82,6 @@ func FillAuthor(data []data.TrackInfo, db *sql.DB) error {
 			return fmt.Errorf("cant insert new author: %w", err)
 		}
 	}
-	
+
 	return nil
 }

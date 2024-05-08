@@ -8,11 +8,11 @@ import (
 	_ "github.com/lib/pq"
 
 	"kra/data"
-	helper "kra/querryhelpers"
 	funcshelpers "kra/filltable/helpers"
+	helper "kra/querryhelpers"
 )
 
-func deleteAllAudio(db * sql.DB) error {
+func deleteAllAudio(db *sql.DB) error {
 	rows, err := db.Query(
 		"SELECT id, \"metric id\" FROM \"audio\" ",
 	)
@@ -28,8 +28,8 @@ func deleteAllAudio(db * sql.DB) error {
 		}
 
 		_, err := db.Exec(
-			"DELETE FROM \"audio\" " + 
-			"WHERE id = $1",
+			"DELETE FROM \"audio\" "+
+				"WHERE id = $1",
 			audioId,
 		)
 		if err != nil {
@@ -37,8 +37,8 @@ func deleteAllAudio(db * sql.DB) error {
 		}
 
 		_, err = db.Exec(
-			"DELETE FROM \"metric\" " + 
-			"WHERE id = $1",
+			"DELETE FROM \"metric\" "+
+				"WHERE id = $1",
 			metricId,
 		)
 		if err != nil {
@@ -77,6 +77,6 @@ func FillAudio(data []data.TrackInfo, db *sql.DB) error {
 			return fmt.Errorf("cant insert new audio: %w", err)
 		}
 	}
-	
+
 	return nil
 }

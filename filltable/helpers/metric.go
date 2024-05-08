@@ -17,9 +17,9 @@ func CreateMetric(db *sql.DB) (int, error) {
 		rand.Intn(constants.MetricViews),
 		rand.Intn(constants.MetricLikes),
 		rand.Intn(constants.MetricReposts),
-		rand.Float64() * constants.MetricRetention,
+		rand.Float64()*constants.MetricRetention,
 		rand.Intn(constants.MetricDownloads),
-		rand.Float64() * constants.MetricYearPopularity,
+		rand.Float64()*constants.MetricYearPopularity,
 	)
 	if err != nil {
 		return metricId, fmt.Errorf("cant insert new metric: %w", err)

@@ -14,10 +14,10 @@ func InsertAudio(
 ) (int, error) {
 	response := 0
 	err := db.QueryRow(
-		"INSERT INTO \"audio\" (\"appellation\", \"lyric\", \"release data\", \"metric id\") " + 
-			"VALUES ($1, $2, $3, $4) RETURNING id", 
+		"INSERT INTO \"audio\" (\"appellation\", \"lyric\", \"release data\", \"metric id\") "+
+			"VALUES ($1, $2, $3, $4) RETURNING id",
 		appellation,
-		lyric, 
+		lyric,
 		release,
 		metricId,
 	).Scan(&response)
@@ -30,8 +30,8 @@ func InsertAudio_Genre(
 	genreId int,
 ) error {
 	_, err := db.Exec(
-		"INSERT INTO \"audio_genre\" (\"audio id\", \"genre id\") " + 
-			"VALUES ($1, $2)", 
+		"INSERT INTO \"audio_genre\" (\"audio id\", \"genre id\") "+
+			"VALUES ($1, $2)",
 		audioId,
 		genreId,
 	)

@@ -9,7 +9,7 @@ import (
 	helper "kra/querryhelpers"
 )
 
-func deleteAllAuthor_Album(db * sql.DB) error {
+func deleteAllAuthor_Album(db *sql.DB) error {
 	_, err := db.Exec(
 		"TRUNCATE TABLE \"author_album\" RESTART IDENTITY CASCADE",
 	)
@@ -40,11 +40,11 @@ func FillAuthor_Album(db *sql.DB) error {
 		}
 
 		authorsInAlbum, err := db.Query(
-			"SELECT author_audio.\"author id\" FROM " + 
-			"(SELECT * FROM album_audio WHERE album_audio.\"album id\" = $1) as album_audio " +
-			"JOIN author_audio " + 
-			"ON author_audio.\"audio id\" = album_audio.\"audio id\" " + 
-			"GROUP BY author_audio.\"author id\"",
+			"SELECT author_audio.\"author id\" FROM "+
+				"(SELECT * FROM album_audio WHERE album_audio.\"album id\" = $1) as album_audio "+
+				"JOIN author_audio "+
+				"ON author_audio.\"audio id\" = album_audio.\"audio id\" "+
+				"GROUP BY author_audio.\"author id\"",
 			albumID,
 		)
 		if err != nil {
@@ -68,6 +68,6 @@ func FillAuthor_Album(db *sql.DB) error {
 			}
 		}
 	}
-	
+
 	return nil
 }

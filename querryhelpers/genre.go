@@ -13,10 +13,10 @@ func InsertGenre(
 ) (int, error) {
 	response := 0
 	err := db.QueryRow(
-		"INSERT INTO \"genre\" (\"appellation\", \"description\", \"metric id\") " + 
-			"VALUES ($1, $2, $3) RETURNING id", 
+		"INSERT INTO \"genre\" (\"appellation\", \"description\", \"metric id\") "+
+			"VALUES ($1, $2, $3) RETURNING id",
 		appellation,
-		description, 
+		description,
 		metricId,
 	).Scan(&response)
 	return response, err

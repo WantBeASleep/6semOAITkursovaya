@@ -7,11 +7,11 @@ import (
 
 	_ "github.com/lib/pq"
 
-	helper "kra/querryhelpers"
 	"kra/constants"
+	helper "kra/querryhelpers"
 )
 
-func deleteAllUser_Audio(db * sql.DB) error {
+func deleteAllUser_Audio(db *sql.DB) error {
 	_, err := db.Exec(
 		"TRUNCATE TABLE \"user_audio\" RESTART IDENTITY CASCADE",
 	)
@@ -43,10 +43,10 @@ func FillUser_Audio(db *sql.DB) error {
 		}
 
 		audioIds, err := db.Query(
-			"SELECT id FROM \"audio\" " +
-			"ORDER BY RANDOM() " +
-			"LIMIT $1",
-			1 + rand.Intn(constants.TopCntUserAudio),
+			"SELECT id FROM \"audio\" "+
+				"ORDER BY RANDOM() "+
+				"LIMIT $1",
+			1+rand.Intn(constants.TopCntUserAudio),
 		)
 		if err != nil {
 			return fmt.Errorf("cant get audio ids: %w", err)
@@ -70,6 +70,6 @@ func FillUser_Audio(db *sql.DB) error {
 			}
 		}
 	}
-	
+
 	return nil
 }

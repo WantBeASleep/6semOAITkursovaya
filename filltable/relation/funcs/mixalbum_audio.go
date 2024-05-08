@@ -12,14 +12,14 @@ import (
 	helper "kra/querryhelpers"
 )
 
-func deleteAllMixAlbum_Audio(db * sql.DB) error {
+func deleteAllMixAlbum_Audio(db *sql.DB) error {
 	mixIds, err := db.Query(
-		"SELECT album.id FROM " + 
-		"\"album_audio\" " + 
-		"JOIN " + 
-		"album " + 
-		"ON album.id = album_audio.\"album id\" " + 
-		"WHERE album.appellation LIKE 'mixed%'",
+		"SELECT album.id FROM " +
+			"\"album_audio\" " +
+			"JOIN " +
+			"album " +
+			"ON album.id = album_audio.\"album id\" " +
+			"WHERE album.appellation LIKE 'mixed%'",
 	)
 	if err != nil {
 		return fmt.Errorf("cant get mixed albums ids: %w", err)
@@ -33,8 +33,8 @@ func deleteAllMixAlbum_Audio(db * sql.DB) error {
 		}
 
 		_, err = db.Exec(
-			"DELETE FROM album_audio " + 
-			"WHERE \"album id\" = $1",
+			"DELETE FROM album_audio "+
+				"WHERE \"album id\" = $1",
 			albumID,
 		)
 		if err != nil {
@@ -53,7 +53,7 @@ func FillMixAlbum_Audio(db *sql.DB) error {
 	//mixed
 	mixedAlbums, err := db.Query(
 		"SELECT id FROM \"album\" " +
-		"WHERE appellation LIKE 'mixed%'",
+			"WHERE appellation LIKE 'mixed%'",
 	)
 	if err != nil {
 		return fmt.Errorf("cant get mixed albums ids: %w", err)
@@ -68,9 +68,9 @@ func FillMixAlbum_Audio(db *sql.DB) error {
 
 		trackInAlbum := 1 + rand.Intn(constants.TopCntAudioInAlbum)
 		randTracks, err := db.Query(
-			"SELECT id FROM \"audio\" " +
-			"ORDER BY RANDOM() " +
-			"LIMIT $1",
+			"SELECT id FROM \"audio\" "+
+				"ORDER BY RANDOM() "+
+				"LIMIT $1",
 			trackInAlbum,
 		)
 		if err != nil {

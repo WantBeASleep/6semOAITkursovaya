@@ -9,9 +9,8 @@ import (
 	_ "github.com/lib/pq"
 )
 
-// вхуярить сюда env
 func openConnection() (*sql.DB, error) {
-	connStr := "user=postgres password=1234 dbname=6sem sslmode=disable"
+	connStr := "user=postgres password=1234 dbname=6semsmall sslmode=disable"
 	db, err := sql.Open("postgres", connStr)
 	if err != nil {
 		return nil, fmt.Errorf("cant sql open: %w", err)

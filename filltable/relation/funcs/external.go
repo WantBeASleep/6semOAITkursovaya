@@ -12,7 +12,7 @@ import (
 	helper "kra/querryhelpers"
 )
 
-func deleteAllExternal(db * sql.DB) error {
+func deleteAllExternal(db *sql.DB) error {
 	_, err := db.Exec(
 		"TRUNCATE TABLE \"external resource\" RESTART IDENTITY CASCADE",
 	)
@@ -40,7 +40,7 @@ func FillExternal(db *sql.DB) error {
 		if rand.Float64() > constants.PercentExternal {
 			continue
 		}
-		
+
 		authorId := 0
 		err = authorIds.Scan(&authorId)
 		if err != nil {
@@ -57,6 +57,6 @@ func FillExternal(db *sql.DB) error {
 			return fmt.Errorf("cant insert new external: %w", err)
 		}
 	}
-	
+
 	return nil
 }
