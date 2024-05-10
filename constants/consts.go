@@ -11,8 +11,8 @@ const (
 	CntGenre    = -1    // parse from csv
 	CntAuthor   = -1    //parse from csv
 	CntAlbum    = -1    // parse from csv*
-	CntAlbumMix = 3000  //40000
-	CntUser     = 15000 // 5000000
+	CntAlbumMix = 40000
+	CntUser     = 5000000
 )
 
 // * - авторские/mix альбомы, авторские - по альбому на исполнителя, mix - const
@@ -23,9 +23,9 @@ const (
 )
 
 const (
-	TopCntAudioInAlbum = 7
-	TopCntUserAudio    = 10
-	TopCntUserAlbum    = 3
+	TopCntAudioInAlbum = 25
+	TopCntUserAudio    = 50
+	TopCntUserAlbum    = 10
 )
 
 const (

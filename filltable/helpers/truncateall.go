@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	_ "github.com/lib/pq" // Используем драйвер PostgreSQL
+	_ "github.com/lib/pq" 
 )
 
 func TruncateAllTables(db *sql.DB, path string) error {

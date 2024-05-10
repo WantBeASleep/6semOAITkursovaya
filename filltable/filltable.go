@@ -17,6 +17,7 @@ import (
 	"kra/cli"
 	"kra/filltable/nonrelation"
 	"kra/filltable/relation"
+	"kra/filltable/reports"
 )
 
 func Manager(db *sql.DB) error {
@@ -27,11 +28,12 @@ func Manager(db *sql.DB) error {
 
 	nonRelationFuncs := nonrelation.GetFuncs(db)
 	relationFuncs := relation.GetFuncs(db)
+	reports := reports.GetFuncs(db)
 
 	handler := model.InitFuncHolder(
 		db,
 		data,
-		slices.Concat(nonRelationFuncs, relationFuncs),
+		slices.Concat(nonRelationFuncs, relationFuncs, reports),
 	)
 
 	term := tea.NewProgram(cli.InitialModel(handler.GetOptionDescription()))

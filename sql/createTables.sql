@@ -1,4 +1,4 @@
--- Active: 1715157815254@@127.0.0.1@5432@6semsmall
+-- Active: 1715254192190@@127.0.0.1@5432@6sem
 
 DROP TABLE IF EXISTS "metric" CASCADE;
 DROP TABLE IF EXISTS "audio" CASCADE;
@@ -27,7 +27,6 @@ CREATE TABLE "metric" (
     "year-popularity" NUMERIC NOT NULL 
 );
 
--- гавнище сначала метрику, потом аудио
 CREATE TABLE "audio" (
     id SERIAL PRIMARY KEY,
     "appellation" VARCHAR(1000) NOT NULL,
@@ -87,7 +86,6 @@ CREATE TABLE "user" (
     FOREIGN KEY ("author id") REFERENCES "author"(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
--- многие к многим баля
 -- альбом: аудио, жанр
 
 CREATE TABLE "album_genre" (

@@ -39,21 +39,11 @@ func GetFuncs(db *sql.DB) []model.TableFunc {
 			TableStatus: helpers.GetTableStatus(db, "user"),
 			Efunc:       funcs.RelationUser_Author,
 		},
-		// {
-		// 	TableName: "author albums",
-		// 	TableStatus: helpers.GetTableStatus(db, "album"),
-		// 	Efunc: funcs.FillAuthorAlbum,
-		// },
 		{
 			TableName:   "mix album_audio",
 			TableStatus: helpers.GetTableStatus(db, "album_audio"),
 			Efunc:       funcs.FillMixAlbum_Audio,
 		},
-		// {
-		// 	TableName: "author album_audio",
-		// 	TableStatus: helpers.GetTableStatus(db, "album_audio"),
-		// 	Efunc: funcs.FillAuthorAlbum_Audio,
-		// },
 		{
 			TableName:   "album_genre",
 			TableStatus: helpers.GetTableStatus(db, "album_genre"),

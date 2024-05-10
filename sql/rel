@@ -1,0 +1,91 @@
+-- Active: 1715157815254@@127.0.0.1@5432@6semsmall
+R1	author(#id, appellation, description, metrics id)
+R2	user(#id, login, email, password, role, author id)
+R3	audio(#id, appellation, liryc, release date, metrics id)
+R4	album(#id, appellation, release date, metrics id)
+R5	snippet(#id, audio id, start, end)
+R6	genre(#id, appellation, description, metrics id)
+R7	metrics(#id, views, likes, reposts, retention, downloads, year-popularity)
+R8	external resource(#id, link, type, author id)
+R9	user_album(#id, user id, album id)
+R10	user_audio(#id, user id, audio id)
+R11	author_audio(#id, author id, audio id)
+R12	audio_genre(#id, audio id, genre id)
+R13	album_audio(#id, album id, audio id)
+R14	author_album(#id, author id, album id)
+R15	album_genre(#id, album id, genre id)
+
+●	Выбрать все песни в библиотеке пользователя с указанием автора и жанра
+
+// id audio в библе
+$USER_ID = "smt"
+R16 = R10
+// аудио-жанр
+R17 = R16[R10.audio id = R12.audio id]R12
+R18 = R17[R12.genre id = R6.id]R6
+//аудио-жанр-автор
+R19 = R18[R10.audio id = R11.audio id]R11
+R20 = R19[R11.author id = R1.id]R1
+R21 = R20[R10.user id = USER_ID]
+R22 = R21[R3.appellation, R1.appellation, R6.appellation]
+
+●	Выбрать наиболее подходящий по жанру плейлист от других пользователей
+$USER_ID = "smt"
+// аудио-жанр у пользователя
+R16 = R10[R10.audio id = R3.id]R3
+R17 = R16[R3.id = R12.audio id]R12
+R18 = R17[R10.user id = USER_ID]
+// топ жанр пользователя
+R19 = R18[R12.genre id] GROUP BY R12.genre id ORDER BY COUNT(*) DESC LIMIT 1
+// альбом-жанры
+R20 = R4[R4.id = R13.album id]R13
+R21 = R20[R13.audio id = R12.audio id]R12
+R22 = R21[R12.genre id = R19.genre id]
+R23 = R21[R4.id] GROUP BY R4.id ORDER BY COUNT(*) DESC LIMIT 1
+
+●	Выбрать топ 10 самых популярных авторов за последний год
+//автор - метрики
+R16 = R1[R1.metrics id = R7.id]R7
+R17 = R16[R1.appellation] ORDER BY R7.year-popularity DESC LIMIT 10
+
+●	Выбрать самый распространённый альбом, который в свою библиотеку добавили авторы, чей основной жанр совпадает с любимым жанром пользователя
+$USER_ID = "smt"
+// аудио-жанр у пользователя
+R16 = R10[R10.audio id = R3.id]R3
+R17 = R16[R3.id = R12.audio id]R12
+R18 = R17[R10.user id = USER_ID]
+// топ жанр пользователя
+R19 = R18[R12.genre id] GROUP BY R12.genre id ORDER BY COUNT(*) DESC LIMIT 1
+// авторы
+R20 = R2[R2.role = 1]
+// альбомы у авторов
+R21 = R20[R2.id = R9.user id]R9
+// альбомы-жанр
+R22 = R21[R9.album id = R13.album id]R13
+R23 = R22[R13.audio id = R12.audio id]R12
+R24 = R23[R12.genre id = R19.genre id]
+R25 = R24[R9.album id] GROUP BY R9.album id ORDER BY COUNT(*) LIMIT 1
+
+
+●	Среди 10 самых популярных альбомов за последний год, выбрать самую залайканую песню, чей сниппет жанрово совпадает с метриками пользователя
+$USER_ID = "smt"
+//топ жанр пользователя
+R16 = R10[R10.audio id = R3.id]R3
+R17 = R16[R3.id = R12.audio id]R12
+R18 = R17[R10.user id = USER_ID]
+// топ жанр пользователя
+R19 = R18[R12.genre id] GROUP BY R12.genre id ORDER BY COUNT(*) DESC LIMIT 1
+// 10 поплуряных
+R20 = R4[R4.metrics id = R7.id]R7
+R21 = R20 ORDER BY R7.year-popularity LIMIT 10
+//песни в альбомах
+R22 = R21[R4.id = R13.album id]R13
+//жанры песен
+R23 = R22[R13.audio id = R12.genre id]R12
+//снипет
+R24 = R3[R13.audio id = R5.audio id]R5
+//отсеиваем жанр
+R25 = R24[R12.genre id = R19.genre id]
+//метрики песен
+R26 = R25[R13.audio id = R7.id]R7
+R27 = R26[R13.audio id] ORDER BY R7.likes DESC LIMIT 1
